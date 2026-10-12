@@ -1,0 +1,22 @@
+?start: expr
+
+?expr: expr "+" term -> add
+     | expr "-" term -> sub
+     | term
+
+?term: term "*" unary -> mul
+     | unary
+
+?unary: "-" unary -> neg
+      | "log" unary "base" unary -> log
+      | power
+
+?power: atom "^" unary -> pow
+      | atom
+
+?atom: NUMBER -> number
+     | "(" expr ")"
+
+%import common.NUMBER
+%import common.WS
+%ignore WS
